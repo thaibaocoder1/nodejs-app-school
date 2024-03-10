@@ -5,13 +5,18 @@ const { multipleMongooseObject, mongooseObject } = require('../../utils');
 class ProductController {
   // [GET] /products
   index(req, res, next) {
-    Promise.all([Catalog.find({}), Product.find({})])
-      .then(([listCategory, listProduct]) => {
+    Promise.all([
+      Catalog.find({}),
+      Product.find({}),
+      Product.countDocuments({}),
+    ])
+      .then(([listCategory, listProduct, countProducts]) => {
         listCategory = multipleMongooseObject(listCategory);
         listProduct = multipleMongooseObject(listProduct);
         res.render('products', {
           listCategory,
           listProduct,
+          countProducts,
         });
       })
       .catch(next);
@@ -20,9 +25,9 @@ class ProductController {
   detail(req, res, next) {
     Promise.all([Catalog.find({}), Product.findById({ _id: req.params.id })])
       .then(([listCategory, product]) => {
-        const categoryId = product.category_id;
+        const categoryId = product.categoryID;
         return Promise.all([
-          Product.find({ category_id: categoryId }),
+          Product.find({ categoryID: categoryId }),
           listCategory,
           product,
         ]);
@@ -44,7 +49,32 @@ class ProductController {
   }
   // [GET] /products/:slug
   page(req, res, next) {
-    res.send('hi');
+    const slug = req.params?.slug;
+    Catalog.findOne({ slug: slug })
+      .then((data) => {
+        if (!data || data === null) {
+          return res.status(500).json({ message: 'Invalid slug!!!' });
+        } else {
+          const catalogID = data.id;
+          return Promise.all([
+            Product.find({ categoryID: catalogID }),
+            data,
+            Catalog.find({}),
+            Product.countDocuments({ categoryID: catalogID }),
+          ]);
+        }
+      })
+      .then(([listProduct, data, listCategory, countProducts]) => {
+        listProduct = multipleMongooseObject(listProduct);
+        listCategory = multipleMongooseObject(listCategory);
+        res.render('products', {
+          listProduct,
+          listCategory,
+          countProducts,
+          name: data.title,
+        });
+      })
+      .catch(next);
   }
 }
 module.exports = new ProductController();

@@ -1,0 +1,62 @@
+<div class='spinner'></div>
+<!-- main -->
+<div id='main-content-wp' class='home-page clearfix'>
+  <div class='wp-inner'>
+    <div class='main-content fl-right'>
+      {{#if isLogin}}
+        <section class='users'>
+          <div class='users-box'>
+            <div class='user-left' id='userInfo'>
+              <div class='input-group'>
+                <label for='fullname'>Họ và tên</label>
+                <input type='text' name='fullname' id='fullname' disabled />
+              </div>
+              <div class='input-group'>
+                <label for='username'>Tên đăng nhập</label>
+                <input type='text' name='username' id='username' disabled />
+              </div>
+              <div class='input-group'>
+                <label for='email'>Email</label>
+                <input type='text' name='email' id='email' disabled />
+              </div>
+              <div class='input-group'>
+                <label for='phone'>Số điện thoại</label>
+                <input type='text' name='phone' id='phone' disabled />
+              </div>
+            </div>
+            <div class='user-right' id='userAvatar'>
+              <div class='input-group'>
+                <label for='avatar'>Ảnh đại diện</label>
+                <input type='hidden' name='imageUrl' />
+                <img
+                  src='https://placehold.co/300x300'
+                  id='avatar'
+                  alt=''
+                  sizes=''
+                  srcset=''
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+      {{/if}}
+    </div>
+    <div class='sidebar fl-left'>
+      <div class='section' id='category-product-wp'>
+        <div class='section-head'>
+          <h3 class='section-title'>Thông tin khách hàng</h3>
+        </div>
+        <div class='secion-detail'>
+          <ul class='list-item' id='accountUser'>
+            <li>
+              <a href='/login' title='Đăng nhập'>Đăng nhập</a>
+            </li>
+            <li>
+              <a href='/register' title='Đăng ký'>Đăng ký</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

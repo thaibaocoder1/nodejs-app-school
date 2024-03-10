@@ -1,0 +1,194 @@
+<!-- main -->
+<div id='main-content-wp' class='home-page clearfix'>
+  <div class='wp-inner'>
+    <div class='main-content fl-right'>
+      <div class='section' id='slider-wp'>
+        <div class='section-detail'>
+          <div class='item'>
+            <img src='/images/slider-01.png' alt='' />
+          </div>
+          <div class='item'>
+            <img src='/images/slider-02.png' alt='' />
+          </div>
+          <div class='item'>
+            <img src='/images/slider-03.png' alt='' />
+          </div>
+        </div>
+      </div>
+      <div class='section' id='support-wp'>
+        <div class='section-detail'>
+          <ul class='list-item clearfix'>
+            <li>
+              <div class='thumb'>
+                <img src='/images/icon-1.png' />
+              </div>
+              <h3 class='title'>Miễn phí vận chuyển</h3>
+              <p class='desc'>Tới tận tay khách hàng</p>
+            </li>
+            <li>
+              <div class='thumb'>
+                <img src='/images/icon-2.png' />
+              </div>
+              <h3 class='title'>Tư vấn 24/7</h3>
+              <p class='desc'>1900.9999</p>
+            </li>
+            <li>
+              <div class='thumb'>
+                <img src='/images/icon-3.png' />
+              </div>
+              <h3 class='title'>Tiết kiệm hơn</h3>
+              <p class='desc'>Với nhiều ưu đãi cực lớn</p>
+            </li>
+            <li>
+              <div class='thumb'>
+                <img src='/images/icon-4.png' />
+              </div>
+              <h3 class='title'>Thanh toán nhanh</h3>
+              <p class='desc'>Hỗ trợ nhiều hình thức</p>
+            </li>
+            <li>
+              <div class='thumb'>
+                <img src='/images/icon-5.png' />
+              </div>
+              <h3 class='title'>Đặt hàng online</h3>
+              <p class='desc'>Thao tác đơn giản</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class='section' id='feature-product-wp'>
+        <div class='section-head'>
+          <h3 class='section-title'>Sản phẩm nổi bật</h3>
+        </div>
+        <div class='section-detail'>
+          <ul id='listItemFeatures'>
+            <div class='swiper'>
+              <div class='swiper-wrapper'></div>
+            </div>
+          </ul>
+        </div>
+      </div>
+      <div class='section' id='list-product-wp'>
+        <div class='section-head'>
+          <h3 class='section-title'>Điện thoại</h3>
+        </div>
+        <div class='section-detail'>
+          <ul class='list-item clearfix'>
+            {{#each productPhone}}
+              <li class='product-item'>
+                <div class='product-sale'>
+                  <span>-{{this.discount}}%</span>
+                </div>
+                <a
+                  href='/products/details/{{this._id}}'
+                  title='{{this.name}}'
+                  class='thumb'
+                >
+                  <img src='/images/{{this.thumb}}' />
+                </a>
+                <a
+                  href='/products/details/{{this._id}}'
+                  title=''
+                  class='product-name'
+                >{{this.name}}</a>
+                <div class='price'>
+                  <span class='new'>{{calcPrice
+                      this.price
+                      this.discount
+                    }}</span>
+                  <span class='old'>{{format this.price}}</span>
+                </div>
+                <div class='action clearfix'>
+                  <a href='' title='Thêm giỏ hàng' class='add-cart fl-left'>Thêm
+                    giỏ hàng</a>
+                  <a href='' title='Mua ngay' class='buy-now fl-right'>Mua ngay</a>
+                </div>
+              </li>
+            {{/each}}
+          </ul>
+        </div>
+      </div>
+      <div class='section' id='list-product-wp'>
+        <div class='section-head'>
+          <h3 class='section-title'>Laptop</h3>
+        </div>
+        <div class='section-detail'>
+          <ul class='list-item clearfix'>
+            {{#each productLaptop}}
+              <li class='product-item'>
+                <div class='product-sale'>
+                  <span>-{{this.discount}}%</span>
+                </div>
+                <a
+                  href='/products/details/{{this._id}}'
+                  title='{{this.name}}'
+                  class='thumb'
+                >
+                  <img src='/images/{{this.thumb}}' />
+                </a>
+                <a
+                  href='/products/details/{{this._id}}'
+                  title=''
+                  class='product-name'
+                >{{this.name}}</a>
+                <div class='price'>
+                  <span class='new'>{{calcPrice
+                      this.price
+                      this.discount
+                    }}</span>
+                  <span class='old'>{{format this.price}}</span>
+                </div>
+                <div class='action clearfix'>
+                  <a href='' title='Thêm giỏ hàng' class='add-cart fl-left'>Thêm
+                    giỏ hàng</a>
+                  <a href='' title='Mua ngay' class='buy-now fl-right'>Mua ngay</a>
+                </div>
+              </li>
+            {{/each}}
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class='sidebar fl-left'>
+      <div class='section' id='category-product-wp'>
+        <div class='section-head'>
+          <h3 class='section-title'>Danh mục sản phẩm</h3>
+        </div>
+        <div class='secion-detail'>
+          <ul class='list-item'>
+            {{#each listCategory}}
+              <li>
+                <a
+                  href='/products/{{this.slug}}'
+                  title='{{this.title}}'
+                >{{this.title}}</a>
+              </li>
+            {{/each}}
+          </ul>
+        </div>
+      </div>
+      <div class='section' id='selling-wp'>
+        <div class='section-head'>
+          <h3 class='section-title'>Sản phẩm bán chạy</h3>
+        </div>
+        <div class='section-detail'>
+          <ul class='list-item' id='listItemSeller'></ul>
+        </div>
+      </div>
+      <div class='section' id='banner-wp'>
+        <div class='section-detail' style='background-color: red'>
+          <a href='/' title='' class='thumb'>
+            <img src='/images/logo.png' alt='' />
+          </a>
+        </div>
+      </div>
+      <div class='section' id='banner-wp'>
+        <div class='section-detail'>
+          <a href='' title='' class='thumb'>
+            <img src='/images/banner.png' alt='' />
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

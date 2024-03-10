@@ -1,0 +1,143 @@
+<div id='main-content-wp' class='clearfix detail-product-page'>
+  <div class='wp-inner'>
+    <div class='secion' id='breadcrumb-wp'>
+      <div class='secion-detail'>
+        <ul class='list-item clearfix'>
+          <li>
+            <a href='/' title='Trang chủ'>Trang chủ</a>
+          </li>
+          <li>
+            <a href='/products' title='Sản phẩm'>Sản phẩm</a>
+          </li>
+          <li>
+            <a
+              href='/products/details/{{product._id}}'
+              title='Chi tiết ản phẩm'
+            >{{product.name}}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class='main-content fl-right'>
+      <div class='section' id='detail-product-wp'>
+        <div class='section-detail clearfix'>
+          <div class='thumb-wp fl-left'>
+            <a href='' title='' id='main-thumb'>
+              <img
+                id='zoom'
+                style='width: 350px;
+                height: 350px; object-fit: cover;'
+                src='/images/{{product.thumb}}'
+                data-zoom-image='/images/{{product.thumb}}'
+              />
+            </a>
+          </div>
+          <div class='thumb-respon-wp fl-left'>
+            <img src='/images/img-pro-01.png' alt='' />
+          </div>
+          <div class='info fl-right'>
+            <h3 class='product-name'>{{product.name}}</h3>
+            <div class='desc'>
+              <p>{{product.description}}</p>
+            </div>
+            <div class='num-product'>
+              <span class='title'>Sản phẩm: </span>
+              <span class='status'>Còn hàng</span>
+            </div>
+            <p class='price'>{{format product.price}}</p>
+            <div id='num-order-wp'>
+              <div class='left'>
+                <a title='' id='minus'><i class='fa fa-minus'></i></a>
+                <input type='text' name='num-order' value='1' id='num-order' />
+                <a title='' id='plus'><i class='fa fa-plus'></i></a>
+              </div>
+              <div class='right'>
+                <p>{{product.quantity}} sản phẩm có sẵn</p>
+              </div>
+            </div>
+            <a href='' title='Thêm giỏ hàng' class='add-cart'>Thêm giỏ hàng</a>
+            <a href='' title='Mua ngay' class='add-cart add-cart--fast'>Mua ngay</a>
+          </div>
+        </div>
+      </div>
+      <div class='section' id='post-product-wp'>
+        <div class='section-head'>
+          <h3 class='section-title'>Mô tả sản phẩm</h3>
+        </div>
+        <div class='section-detail'>
+          <p>{{product.content}}</p>
+        </div>
+      </div>
+      <div class='section' id='same-category-wp'>
+        <div class='section-head'>
+          <h3 class='section-title'>Cùng chuyên mục</h3>
+        </div>
+        <div class='section-detail'>
+          <ul class='list-item'>
+            {{#each filterRelatedProduct}}
+              <li class='product-item'>
+                <div class='product-sale'>
+                  <span>{{this.discount}}%</span>
+                </div>
+                <a
+                  href='/products/details/{{this._id}}'
+                  title='{{this.name}}'
+                  class='thumb'
+                >
+                  <img
+                    src='/images/{{this.thumb}}'
+                    style='width: 150px;
+                  height: 150px; object-fit: cover; display: block; margin: 0 auto;'
+                  />
+                </a>
+                <a
+                  href='/products/details/{{this._id}}'
+                  title='{{this.name}}'
+                  class='product-name'
+                >{{this.name}}</a>
+                <div class='price'>
+                  <span class='new'>{{calcPrice
+                      this.price
+                      this.discount
+                    }}</span>
+                  <span class='old'>{{format this.price}}</span>
+                </div>
+                <div class='action clearfix'>
+                  <a href='' title='Thêm giỏ hàng' class='add-cart fl-left'>Thêm
+                    giỏ hàng</a>
+                  <a href='' title='Mua ngay' class='buy-now fl-right'>Mua ngay</a>
+                </div>
+              </li>
+            {{/each}}
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class='sidebar fl-left'>
+      <div class='section' id='category-product-wp'>
+        <div class='section-head'>
+          <h3 class='section-title'>Danh mục sản phẩm</h3>
+        </div>
+        <div class='secion-detail'>
+          <ul class='list-item'>
+            {{#each listCategory}}
+              <li>
+                <a
+                  href='/products/{{this.slug}}'
+                  title='{{this.title}}'
+                >{{this.title}}</a>
+              </li>
+            {{/each}}
+          </ul>
+        </div>
+      </div>
+      <div class='section' id='banner-wp'>
+        <div class='section-detail'>
+          <a href='' title='' class='thumb'>
+            <img src='/images/banner.png' alt='' />
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
