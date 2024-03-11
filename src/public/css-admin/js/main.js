@@ -1,15 +1,18 @@
 $(document).ready(function () {
-  // var height = $(window).height() - $('#footer-wp').outerHeight(true) - $('#header-wp').outerHeight(true);
-  // $('#content').css('min-height', height);
+  var height =
+    $(window).height() -
+    ($('#footer-wp').outerHeight(true) + $('#header-wp').outerHeight(true)) -
+    2;
+  $('#content').css('min-height', height);
 
   //  CHECK ALL
-  $('input[name="checkAll"]').click(function () {
-    var status = $(this).prop('checked');
-    $('.list-table-wp tbody tr td input[type="checkbox"]').prop(
-      'checked',
-      status,
-    );
-  });
+  // $('input[name="checkAll"]').click(function () {
+  //   var status = $(this).prop('checked');
+  //   $('.list-table-wp tbody tr td input[type="checkbox"]').prop(
+  //     'checked',
+  //     status,
+  //   );
+  // });
 
   // EVENT SIDEBAR MENU
   $('#sidebar-menu .nav-item .nav-link .title').after(

@@ -3,6 +3,7 @@ const { engine } = require('express-handlebars');
 const morgan = require('morgan');
 const path = require('path');
 const cookieParser = require('cookie-parser');
+const methodOverride = require('method-override');
 const { formatCurrencyNumber } = require('./utils');
 const db = require('./config/db');
 const routes = require('./routes');
@@ -22,6 +23,7 @@ app.use(
   }),
 );
 app.use(express.json());
+app.use(methodOverride('_method'));
 app.use(cookieParser());
 // Static folder
 app.use(express.static(path.join(__dirname, 'public')));
@@ -40,6 +42,9 @@ app.engine(
       },
       defaultVal(value, currentValue) {
         return value || currentValue;
+      },
+      selectedVal(categoryPID, catgoryID) {
+        return catgoryID === categoryPID ? 'selected' : '';
       },
     },
   }),

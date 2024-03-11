@@ -9,16 +9,27 @@
           </a>
           <ul class='sub-menu'>
             <li class='nav-item'>
-              <a href='/admin/add-product.html' title='' class='nav-link'>Thêm
-                mới</a>
+              <a
+                href='/admin/products/add'
+                title='Thêm mới'
+                class='nav-link'
+              >Thêm mới</a>
             </li>
             <li class='nav-item'>
-              <a href='/admin/product.html' title='' class='nav-link'>Danh sách
-                sản phẩm</a>
+              <a
+                href='/admin/products'
+                title='Danh sách
+                sản phẩm'
+                class='nav-link'
+              >Danh sách sản phẩm</a>
             </li>
             <li class='nav-item'>
-              <a href='/admin/category.html' title='' class='nav-link'>Danh mục
-                sản phẩm</a>
+              <a
+                href='/admin/category'
+                title='Danh mục sản
+                phẩm'
+                class='nav-link'
+              >Danh mục sản phẩm</a>
             </li>
           </ul>
         </li>
@@ -29,8 +40,12 @@
           </a>
           <ul class='sub-menu'>
             <li class='nav-item'>
-              <a href='/admin/order.html' title='' class='nav-link'>Danh sách
-                đơn hàng</a>
+              <a
+                href='/admin/order'
+                title='Danh sách đơn
+                hàng'
+                class='nav-link'
+              >Danh sách đơn hàng</a>
             </li>
           </ul>
         </li>
@@ -41,8 +56,8 @@
           </a>
           <ul class='sub-menu'>
             <li class='nav-item'>
-              <a href='/admin/comment.html' title='' class='nav-link'>Danh sách
-                bình luận</a>
+              <a href='/admin/comment' title='' class='nav-link'>Danh sách bình
+                luận</a>
             </li>
           </ul>
         </li>
@@ -51,9 +66,9 @@
     <div id='content' class='fl-right'>
       <div class='section' id='title-page'>
         <div class='clearfix'>
-          <h3 id='index' class='fl-left'>Danh sách sản phẩm</h3>
+          <h3 id='index' class='fl-left'>Danh sách danh mục</h3>
           <a
-            href='/admin/products/add'
+            href='/admin/category/add'
             title=''
             id='add-new'
             class='fl-left'
@@ -98,73 +113,36 @@
             <table class='table list-table-wp'>
               <thead>
                 <tr>
-                  <td><input
-                      type='checkbox'
-                      name='checkAll'
-                      id='checkAll'
-                    /></td>
                   <td><span class='thead-text'>STT</span></td>
-                  <td><span class='thead-text'>Mã sản phẩm</span></td>
-                  <td><span class='thead-text'>Hình ảnh</span></td>
-                  <td><span class='thead-text'>Tên sản phẩm</span></td>
-                  <td><span class='thead-text'>Giá</span></td>
-                  <td><span class='thead-text'>Sale</span></td>
-                  <td><span class='thead-text'>Số lượng</span></td>
-                  <td><span class='thead-text'>Thời gian</span></td>
+                  <td><span class='thead-text'>Tiêu đề</span></td>
+                  <td><span class='thead-text'>Slug</span></td>
+                  <td><span class='thead-text'>Ngày tạo</span></td>
                   <td colspan='2'><span class='thead-text'>Thao tác</span></td>
                 </tr>
               </thead>
               <tbody>
-                {{#each products}}
+                {{#each listCategory}}
                   <tr>
-                    <td><input
-                        type='checkbox'
-                        name='checkItem'
-                        class='checkItem'
-                      /></td>
-                    <td><span class='tbody-text'>1</span></td>
-                    <td><span class='tbody-text'>{{this.code}}</span></td>
-                    <td>
-                      <img
-                        src='/images/{{this.thumb}}'
-                        alt='{{this.name}}'
-                        height='80'
-                      />
-                    </td>
-                    <td>
-                      <a href='' title='{{this.name}}'>{{this.name}}</a>
-                    </td>
-                    <td><span class='tbody-text'>{{format
-                          this.price
-                        }}</span></td>
-                    <td><span class='tbody-text'>{{this.discount}}%</span></td>
-                    <td><span class='tbody-text'>{{this.quantity}}</span></td>
+                    <td><span class='tbody-text'>{{@index}}</span></td>
+                    <td><span class='tbody-text'>{{this.title}}</span></td>
+                    <td><span class='tbody-text'>{{this.slug}}</span></td>
                     <td><span class='tbody-text'>{{this.createdAt}}</span></td>
                     <td>
                       <a
-                        href='/admin/products/edit/{{this._id}}'
+                        href='/admin/category/edit/{{this._id}}'
                         class=''
                       >Sửa</a>
+                      |
+                      <a
+                        href='/admin/category/delete/{{this._id}}'
+                        class=''
+                      >Xoá</a>
                     </td>
                   </tr>
                 {{/each}}
               </tbody>
-              <tfoot>
-                <tr>
-                  <td><input
-                      type='checkbox'
-                      name='checkAll'
-                      id='checkAll'
-                    /></td>
-                </tr>
-              </tfoot>
             </table>
           </div>
-        </div>
-      </div>
-      <div class='section' id='paging-wp'>
-        <div class='section-detail clearfix'>
-          <p id='desc' class='fl-left'>Chọn vào checkbox để lựa chọn tất cả</p>
         </div>
       </div>
     </div>
