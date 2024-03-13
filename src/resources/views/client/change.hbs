@@ -1,0 +1,190 @@
+<!-- main -->
+<div id='main-content-wp' class='home-page clearfix' style='height: 100%;'>
+  <div class='wp-inner'>
+    <div class='main-content fl-right'>
+      {{#if isLogin}}
+        <section class='users'>
+          <div class='users-box'>
+            <div class='user-left' id='userInfo'>
+              <form action='' novalidate id='formChangePassword'>
+                <div class='input-group'>
+                  <label for='oldPassword'>Mật khẩu cũ</label>
+                  <input
+                    type='password'
+                    name='oldPassword'
+                    id='oldPassword'
+                    class='password'
+                  />
+                  <span class='invalid-feedback'></span>
+                  <div class='icons-toggle'>
+                    <svg
+                      xmlns='http://www.w3.org/2000/svg'
+                      fill='none'
+                      viewBox='0 0 24 24'
+                      stroke-width='1.5'
+                      stroke='currentColor'
+                      class='eye-icon'
+                    >
+                      <path
+                        stroke-linecap='round'
+                        stroke-linejoin='round'
+                        d='M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z'
+                      />
+                      <path
+                        stroke-linecap='round'
+                        stroke-linejoin='round'
+                        d='M15 12a3 3 0 11-6 0 3 3 0 016 0z'
+                      />
+                    </svg>
+                    <svg
+                      xmlns='http://www.w3.org/2000/svg'
+                      fill='none'
+                      viewBox='0 0 24 24'
+                      stroke-width='1.5'
+                      stroke='currentColor'
+                      class='eye-icon is-active'
+                    >
+                      <path
+                        stroke-linecap='round'
+                        stroke-linejoin='round'
+                        d='M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88'
+                      />
+                    </svg>
+                  </div>
+                </div>
+                <div class='input-group'>
+                  <label for='password'>Mật khẩu mới</label>
+                  <input
+                    type='password'
+                    name='password'
+                    id='password'
+                    class='password'
+                  />
+                  <span class='invalid-feedback'></span>
+                  <div class='icons-toggle'>
+                    <svg
+                      xmlns='http://www.w3.org/2000/svg'
+                      fill='none'
+                      viewBox='0 0 24 24'
+                      stroke-width='1.5'
+                      stroke='currentColor'
+                      class='eye-icon'
+                    >
+                      <path
+                        stroke-linecap='round'
+                        stroke-linejoin='round'
+                        d='M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z'
+                      />
+                      <path
+                        stroke-linecap='round'
+                        stroke-linejoin='round'
+                        d='M15 12a3 3 0 11-6 0 3 3 0 016 0z'
+                      />
+                    </svg>
+                    <svg
+                      xmlns='http://www.w3.org/2000/svg'
+                      fill='none'
+                      viewBox='0 0 24 24'
+                      stroke-width='1.5'
+                      stroke='currentColor'
+                      class='eye-icon is-active'
+                    >
+                      <path
+                        stroke-linecap='round'
+                        stroke-linejoin='round'
+                        d='M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88'
+                      />
+                    </svg>
+                  </div>
+                </div>
+                <div class='input-group'>
+                  <label for='password_confirmation'>Nhập lại mật khẩu</label>
+                  <input
+                    type='password'
+                    name='retypePassword'
+                    id='password_confirmation'
+                    class='password'
+                  />
+                  <span class='invalid-feedback'></span>
+                  <div class='icons-toggle'>
+                    <svg
+                      xmlns='http://www.w3.org/2000/svg'
+                      fill='none'
+                      viewBox='0 0 24 24'
+                      stroke-width='1.5'
+                      stroke='currentColor'
+                      class='eye-icon'
+                    >
+                      <path
+                        stroke-linecap='round'
+                        stroke-linejoin='round'
+                        d='M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z'
+                      />
+                      <path
+                        stroke-linecap='round'
+                        stroke-linejoin='round'
+                        d='M15 12a3 3 0 11-6 0 3 3 0 016 0z'
+                      />
+                    </svg>
+                    <svg
+                      xmlns='http://www.w3.org/2000/svg'
+                      fill='none'
+                      viewBox='0 0 24 24'
+                      stroke-width='1.5'
+                      stroke='currentColor'
+                      class='eye-icon is-active'
+                    >
+                      <path
+                        stroke-linecap='round'
+                        stroke-linejoin='round'
+                        d='M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88'
+                      />
+                    </svg>
+                  </div>
+                </div>
+                <div class='input-group'>
+                  <button type='submit'>Cập nhật</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </section>
+      {{/if}}
+    </div>
+    <div class='sidebar fl-left'>
+      <div class='section' id='category-product-wp'>
+        <div class='section-head'>
+          <h3 class='section-title'>Thông tin khách hàng</h3>
+        </div>
+        <div class='secion-detail'>
+          <ul class='list-item' id='accountUser'>
+            {{#if isLogin}}
+              <li>
+                <a href='/account/update' title='Cập nhật tài khoản'>Cập nhật
+                  tài khoản</a>
+              </li>
+              <li>
+                <a href='/account/change' title='Đổi mật khẩu'>Đổi mật khẩu</a>
+              </li>
+              <li>
+                <a href='/account/order' title='Quản lý đơn hàng'>Quản lý đơn
+                  hàng</a>
+              </li>
+              <li>
+                <a href='/account/logout' title='Đăng xuất'>Đăng xuất</a>
+              </li>
+            {{else}}
+              <li>
+                <a href='/login' title='Đăng nhập'>Đăng nhập</a>
+              </li>
+              <li>
+                <a href='/register' title='Đăng ký'>Đăng ký</a>
+              </li>
+            {{/if}}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src='js/account.js'></script>

@@ -13,6 +13,7 @@ router.get('/category/edit/:id', adminController.categoryEdit);
 router.put('/category/update/:id', adminController.categoryUpdate);
 router.get('/category/add', adminController.categoryAdd);
 router.post('/category/store', adminController.categoryStore);
+router.delete('/category/delete/:id', adminController.categoryDelete);
 // Home admin
 router.get('/', adminController.index);
 

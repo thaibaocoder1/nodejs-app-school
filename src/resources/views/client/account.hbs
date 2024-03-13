@@ -1,4 +1,3 @@
-<div class='spinner'></div>
 <!-- main -->
 <div id='main-content-wp' class='home-page clearfix'>
   <div class='wp-inner'>
@@ -9,31 +8,54 @@
             <div class='user-left' id='userInfo'>
               <div class='input-group'>
                 <label for='fullname'>Họ và tên</label>
-                <input type='text' name='fullname' id='fullname' disabled />
+                <input
+                  type='text'
+                  name='fullname'
+                  id='fullname'
+                  disabled
+                  value='{{user.fullname}}'
+                />
               </div>
               <div class='input-group'>
                 <label for='username'>Tên đăng nhập</label>
-                <input type='text' name='username' id='username' disabled />
+                <input
+                  type='text'
+                  name='username'
+                  id='username'
+                  disabled
+                  value='{{user.username}}'
+                />
               </div>
               <div class='input-group'>
                 <label for='email'>Email</label>
-                <input type='text' name='email' id='email' disabled />
+                <input
+                  type='text'
+                  name='email'
+                  id='email'
+                  disabled
+                  value='{{user.email}}'
+                />
               </div>
               <div class='input-group'>
                 <label for='phone'>Số điện thoại</label>
-                <input type='text' name='phone' id='phone' disabled />
+                <input
+                  type='text'
+                  name='phone'
+                  id='phone'
+                  disabled
+                  value='{{user.phone}}'
+                />
               </div>
             </div>
             <div class='user-right' id='userAvatar'>
               <div class='input-group'>
                 <label for='avatar'>Ảnh đại diện</label>
-                <input type='hidden' name='imageUrl' />
                 <img
-                  src='https://placehold.co/300x300'
+                  src='{{user.imageUrl}}'
                   id='avatar'
-                  alt=''
-                  sizes=''
-                  srcset=''
+                  alt='{{user.username}}'
+                  style='width: 300px;
+                  height: 300px; object-fit: cover;'
                 />
               </div>
             </div>
@@ -48,12 +70,29 @@
         </div>
         <div class='secion-detail'>
           <ul class='list-item' id='accountUser'>
-            <li>
-              <a href='/login' title='Đăng nhập'>Đăng nhập</a>
-            </li>
-            <li>
-              <a href='/register' title='Đăng ký'>Đăng ký</a>
-            </li>
+            {{#if isLogin}}
+              <li>
+                <a href='/account/update' title='Cập nhật tài khoản'>Cập nhật
+                  tài khoản</a>
+              </li>
+              <li>
+                <a href='/account/change' title='Đổi mật khẩu'>Đổi mật khẩu</a>
+              </li>
+              <li>
+                <a href='/account/order' title='Quản lý đơn hàng'>Quản lý đơn
+                  hàng</a>
+              </li>
+              <li>
+                <a href='/account/logout' title='Đăng xuất'>Đăng xuất</a>
+              </li>
+            {{else}}
+              <li>
+                <a href='/login' title='Đăng nhập'>Đăng nhập</a>
+              </li>
+              <li>
+                <a href='/register' title='Đăng ký'>Đăng ký</a>
+              </li>
+            {{/if}}
           </ul>
         </div>
       </div>

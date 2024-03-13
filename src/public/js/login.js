@@ -1,23 +1,16 @@
-function setCookie(cname, cvalue, exdays) {
-  const d = new Date();
-  d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
-  let expires = 'expires=' + d.toUTCString();
-  document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/';
-}
 async function handleOnSubmitForm(data) {
   try {
-    const response = await fetch('/login', {
+    const res = await fetch('/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(data),
     });
-    const dataRes = await response.json();
-    if (dataRes.success) {
-      setCookie('token', dataRes.token, 1);
+    const dataRes = await res.json();
+    if (dataRes.accessToken && dataRes.refreshToken) {
       setTimeout(() => {
-        window.location.assign('/login');
+        window.location.assign('/');
       }, 1000);
     }
   } catch (error) {

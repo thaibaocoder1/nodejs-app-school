@@ -15,6 +15,7 @@ const User = new Schema(
     password_confirmation: String,
     roleID: Number,
     imageUrl: String,
+    refreshToken: String,
   },
   { timestamps: true },
 );

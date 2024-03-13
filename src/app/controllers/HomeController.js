@@ -1,9 +1,10 @@
 const Product = require('../models/Product');
 const Catalog = require('../models/Catalog');
 const User = require('../models/User');
-const { faker } = require('@faker-js/faker');
+const { multipleMongooseObject, mongooseObject } = require('../../utils');
+const authMethod = require('../../auth/AuthController');
+const randToken = require('rand-token');
 const jwt = require('jsonwebtoken');
-const { multipleMongooseObject } = require('../../utils');
 
 class HomeController {
   index(req, res, next) {
@@ -26,77 +27,101 @@ class HomeController {
       })
       .catch(next);
   }
-  account(req, res, next) {
-    res.render('account');
-  }
   register(req, res, next) {
     res.render('register');
   }
-  init(req, res, next) {
+  async init(req, res, next) {
     const { email, phone, password, password_confirmation } = req.body;
-    if (!email || !phone) {
-      return res.status(400).json({
-        error: 'Bad Request',
-        message: "Missing required information: 'email or phone'",
+    const user = await User.findOne({ email: email });
+    if (user) {
+      return res.status(409).send({
+        error: 'Missing Request',
+        message: 'Account already exists.',
       });
+    } else {
+      if (!email || !phone) {
+        return res.status(400).json({
+          error: 'Bad Request',
+          message: "Missing required information: 'email or phone'",
+        });
+      }
+      if (password !== password_confirmation) {
+        return res.status(400).json({
+          error: 'Bad Request',
+          message: 'Password is not match with re-password',
+        });
+      }
+      User.create(req.body)
+        .then((data) => {
+          if (data) {
+            res
+              .status(201)
+              .json({ status: 'Success', message: 'Created user' });
+          } else {
+            res.status(500).json({ message: 'Internal Server Error' });
+          }
+        })
+        .catch(next);
     }
-    if (password !== password_confirmation) {
-      return res.status(400).json({
-        error: 'Bad Request',
-        message: 'Password is not match with re-password',
-      });
-    }
-    User.create(req.body)
-      .then((data) => {
-        if (data) {
-          res.status(201).json({ status: 'Success', message: 'Created user' });
-        } else {
-          res.status(500).json({ message: 'Internal Server Error' });
-        }
-      })
-      .catch(next);
   }
   login(req, res, next) {
     res.render('login');
   }
-  check(req, res, next) {
-    const { email, password } = req.body;
-    if (!email || !password) {
-      return res.status(400).json({
-        error: 'Bad Request',
-        message: "Missing required information: 'email or password'",
-      });
+  async check(req, res, next) {
+    try {
+      const { email, password } = req.body;
+      const user = await User.findOne({ email: email });
+      if (!user) {
+        return res.status(401).send('Email không tồn tại.');
+      }
+      const isPasswordValid = user.password === password;
+      if (!isPasswordValid) {
+        return res.status(401).send('Mật khẩu không chính xác.');
+      }
+      if (!email || !password) {
+        return res.status(400).json({
+          error: 'Bad Request',
+          message: "Missing required information: 'email or password'",
+        });
+      }
+      const accessTokenLife = process.env.ACCESS_TOKEN_LIFE;
+      const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET;
+      const dataForAccessToken = {
+        email: user.email,
+      };
+      const accessToken = await authMethod.generateToken(
+        dataForAccessToken,
+        accessTokenSecret,
+        accessTokenLife,
+      );
+      if (!accessToken) {
+        return res
+          .status(401)
+          .send('Đăng nhập không thành công, vui lòng thử lại.');
+      }
+      let refreshToken = randToken.generate(16, accessToken);
+      if (!user.refreshToken) {
+        await User.findOneAndUpdate(
+          { email: email },
+          { refreshToken: refreshToken },
+        );
+      } else {
+        refreshToken = user.refreshToken;
+      }
+      if (refreshToken && accessToken) {
+        res.cookie('accessToken', accessToken, { maxAge: 5 * 60 * 1000 });
+        res.cookie('refreshToken', refreshToken);
+        return res.status(201).json({ accessToken, refreshToken });
+      } else {
+        return res.status(401).json({
+          success: false,
+          message: 'Not found apply user',
+        });
+      }
+    } catch (error) {
+      return res.status(500).send('Error');
     }
-    User.findOne({
-      email,
-      password,
-    })
-      .then((data) => {
-        if (data) {
-          const token = jwt.sign({ _id: data._id }, 'password');
-          return res.status(200).json({
-            success: true,
-            token,
-          });
-        } else {
-          return res.status(401).json({
-            success: false,
-            message: 'Not found apply user',
-          });
-        }
-      })
-      .catch(next);
   }
-  // admin(req, res, next) {
-  //   try {
-  //     const verify = jwt.verify(req.cookies.token, 'password');
-  //     if (verify) {
-  //       res.render('home');
-  //     }
-  //   } catch (error) {
-  //     res.redirect('/login');
-  //   }
-  // }
   admin(req, res, next) {
     res.render('home');
   }

@@ -1,7 +1,7 @@
 async function handleOnSubmitForm(data) {
   if (data) {
     data['roleID'] = 1;
-    data['imageUrl'] = 'https://placehold.co/600x400';
+    data['imageUrl'] = 'https://placehold.co/400x400';
   }
   try {
     const response = await fetch('/register', {

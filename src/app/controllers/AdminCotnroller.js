@@ -1,16 +1,17 @@
 const Product = require('../models/Product');
 const Catalog = require('../models/Catalog');
 const { multipleMongooseObject, mongooseObject } = require('../../utils');
-
 class AdminController {
   index(req, res, next) {
     res.render('home');
   }
+  // Product
   products(req, res, next) {
-    Product.find({})
-      .then((products) => {
+    Promise.all([Product.find({}), Product.countDocuments()])
+      .then(([products, counted]) => {
         res.render('product/view', {
           products: multipleMongooseObject(products),
+          counted,
         });
       })
       .catch(next);
@@ -36,12 +37,16 @@ class AdminController {
       })
       .catch(next);
   }
+  // Category
   category(req, res, next) {
-    Catalog.find().then((listCategory) => {
-      res.render('category/view', {
-        listCategory: multipleMongooseObject(listCategory),
-      });
-    });
+    Promise.all([Catalog.find(), Catalog.countDocuments()]).then(
+      ([listCategory, counted]) => {
+        res.render('category/view', {
+          listCategory: multipleMongooseObject(listCategory),
+          counted,
+        });
+      },
+    );
   }
   categoryEdit(req, res, next) {
     Promise.all([Catalog.findById({ _id: req.params.id })])
@@ -64,6 +69,13 @@ class AdminController {
   }
   categoryStore(req, res, next) {
     Catalog.create(req.body)
+      .then(() => {
+        res.redirect('/admin/category');
+      })
+      .catch(next);
+  }
+  categoryDelete(req, res, next) {
+    Catalog.deleteOne({ _id: req.params.id })
       .then(() => {
         res.redirect('/admin/category');
       })
