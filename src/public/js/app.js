@@ -31,20 +31,20 @@ $(document).ready(function () {
     lensSize: 250,
   });
 
-  // const featureProduct = $('#feature-product-wp .list-item#listItemFeatures')
-  // featureProduct.owlCarousel({
-  //   autoPlay: true,
-  //   navigation: true,
-  //   navigationText: false,
-  //   paginationNumbers: false,
-  //   pagination: false,
-  //   stopOnHover: true,
-  //   items: 4, //10 items above 1000px browser width
-  //   itemsDesktop: [1000, 4], //5 items between 1000px and 901px
-  //   itemsDesktopSmall: [800, 3], // betweem 900px and 601px
-  //   itemsTablet: [600, 2], //2 items between 600 and 0
-  //   itemsMobile: [375, 1], // itemsMobile disabled - inherit from itemsTablet option
-  // })
+  const featureProduct = $('#feature-product-wp .list-item#listItemFeatures');
+  featureProduct.owlCarousel({
+    autoPlay: true,
+    navigation: true,
+    navigationText: false,
+    paginationNumbers: false,
+    pagination: false,
+    stopOnHover: true,
+    items: 4, //10 items above 1000px browser width
+    itemsDesktop: [1000, 4], //5 items between 1000px and 901px
+    itemsDesktopSmall: [800, 3], // betweem 900px and 601px
+    itemsTablet: [600, 2], //2 items between 600 and 0
+    itemsMobile: [375, 1], // itemsMobile disabled - inherit from itemsTablet option
+  });
 
   //  LIST THUMB
   var list_thumb = $('#list-thumb');

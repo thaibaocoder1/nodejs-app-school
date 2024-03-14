@@ -107,30 +107,42 @@
                 </tr>
               </thead>
               <tbody>
-                {{#each listCategory}}
+                {{#if listCategory}}
+                  {{#each listCategory}}
+                    <tr>
+                      <td><span class='tbody-text'>{{@index}}</span></td>
+                      <td><span class='tbody-text'>{{this.title}}</span></td>
+                      <td><span class='tbody-text'>{{this.slug}}</span></td>
+                      <td><span class='tbody-text'>{{formatDate
+                            this.createdAt
+                          }}</span></td>
+                      <td><span class='tbody-text'>{{formatDate
+                            this.updatedAt
+                          }}</span></td>
+                      <td>
+                        <a
+                          href='/admin/category/edit/{{this._id}}'
+                          class=''
+                        >Sửa</a>
+                        |
+                        <a
+                          href=''
+                          class=''
+                          data-id='{{this._id}}'
+                          id='delete-category'
+                          data-bs-toggle='modal'
+                          data-bs-target='#confirm-modal'
+                        >Xoá</a>
+                      </td>
+                    </tr>
+                  {{/each}}
+                {{else}}
                   <tr>
-                    <td><span class='tbody-text'>{{@index}}</span></td>
-                    <td><span class='tbody-text'>{{this.title}}</span></td>
-                    <td><span class='tbody-text'>{{this.slug}}</span></td>
-                    <td><span class='tbody-text'>{{this.createdAt}}</span></td>
-                    <td><span class='tbody-text'>{{this.updatedAt}}</span></td>
-                    <td>
-                      <a
-                        href='/admin/category/edit/{{this._id}}'
-                        class=''
-                      >Sửa</a>
-                      |
-                      <a
-                        href=''
-                        class=''
-                        data-id='{{this._id}}'
-                        id='delete-category'
-                        data-bs-toggle='modal'
-                        data-bs-target='#confirm-modal'
-                      >Xoá</a>
-                    </td>
+                    <td colspan='6' style='text-align: center;'>Danh mục đang
+                      trống.
+                      <a href='/admin/category/add'>Thêm danh mục ngay</a></td>
                   </tr>
-                {{/each}}
+                {{/if}}
               </tbody>
             </table>
           </div>

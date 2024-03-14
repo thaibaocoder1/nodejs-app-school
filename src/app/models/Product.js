@@ -7,13 +7,14 @@ const Schema = mongoose.Schema;
 
 const Product = new Schema(
   {
-    categoryID: Number,
+    categoryID: { type: mongoose.Types.ObjectId, ref: 'Catalog' },
     name: String,
+    slug: { type: String, slug: 'name' },
     description: String,
     code: String,
     price: Number,
     discount: Number,
-    thumb: String,
+    thumb: { data: Buffer, contentType: String, fileName: String },
     content: String,
     status: Number,
     quantity: Number,

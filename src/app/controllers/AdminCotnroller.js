@@ -1,6 +1,7 @@
 const Product = require('../models/Product');
 const Catalog = require('../models/Catalog');
 const { multipleMongooseObject, mongooseObject } = require('../../utils');
+
 class AdminController {
   index(req, res, next) {
     res.render('home');
@@ -37,6 +38,45 @@ class AdminController {
       })
       .catch(next);
   }
+  productAdd(req, res, next) {
+    req.body.thumb = {
+      data: req.file.originalname,
+      contentType: req.file.mimetype,
+      fileName: req.file.originalname,
+    };
+    try {
+      Product.create(req.body)
+        .then(() => {
+          res.redirect('/admin/products');
+        })
+        .catch(next);
+    } catch (error) {
+      next(error);
+    }
+  }
+  async productUpdate(req, res, next) {
+    try {
+      const product = await Product.findById(req.params.id);
+      if (!req.file) {
+        if (JSON.stringify(req.body) !== JSON.stringify(product.toObject())) {
+          await Product.findByIdAndUpdate({ _id: req.params.id }, req.body);
+          res.redirect('/admin/products');
+        } else {
+          res.redirect('/admin/products');
+        }
+      } else {
+        req.body.thumb = {
+          data: req.file.originalname,
+          contentType: req.file.mimetype,
+          fileName: req.file.originalname,
+        };
+        await Product.findByIdAndUpdate({ _id: req.params.id }, req.body);
+        res.redirect('/admin/products');
+      }
+    } catch (error) {
+      res.status(500).send('Lỗi khi xử lý request.');
+    }
+  }
   // Category
   category(req, res, next) {
     Promise.all([Catalog.find(), Catalog.countDocuments()]).then(
@@ -60,7 +100,10 @@ class AdminController {
   categoryUpdate(req, res, next) {
     Catalog.updateOne({ _id: req.params.id }, req.body)
       .then(() => {
-        res.redirect('/admin/category');
+        return res.send(201).json({
+          status: 'success',
+          message: 'Update successfully',
+        });
       })
       .catch(next);
   }
@@ -70,7 +113,10 @@ class AdminController {
   categoryStore(req, res, next) {
     Catalog.create(req.body)
       .then(() => {
-        res.redirect('/admin/category');
+        return res.send(201).json({
+          status: 'success',
+          message: 'Created successfully',
+        });
       })
       .catch(next);
   }

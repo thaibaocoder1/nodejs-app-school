@@ -1,7 +1,7 @@
 const Product = require('../models/Product');
 const Catalog = require('../models/Catalog');
 const User = require('../models/User');
-const { multipleMongooseObject, mongooseObject } = require('../../utils');
+const { multipleMongooseObject, shuffle } = require('../../utils');
 const authMethod = require('../../auth/AuthController');
 const randToken = require('rand-token');
 const jwt = require('jsonwebtoken');
@@ -9,20 +9,30 @@ const jwt = require('jsonwebtoken');
 class HomeController {
   index(req, res, next) {
     Promise.all([
-      Product.find({ categoryID: 1 }),
-      Product.find({ categoryID: 2 }),
+      Product.find().populate({
+        path: 'categoryID',
+        match: { title: 'Điện thoại' },
+      }),
+      Product.find().populate({
+        path: 'categoryID',
+        match: { title: 'Laptop' },
+      }),
       Catalog.find({}),
+      Product.find({}),
     ])
-      .then(([listPhone, listLaptop, listCategory]) => {
+      .then(([listPhone, listLaptop, listCategory, listProduct]) => {
         let productPhone = [...listPhone].slice(0, 8);
         let productLaptop = [...listLaptop].slice(0, 8);
+        let productShuffle = shuffle(listProduct).slice(0, 6);
         productPhone = multipleMongooseObject(productPhone);
         productLaptop = multipleMongooseObject(productLaptop);
+        productShuffle = multipleMongooseObject(productShuffle);
         listCategory = multipleMongooseObject(listCategory);
         res.render('home', {
           productPhone,
           productLaptop,
           listCategory,
+          productShuffle,
         });
       })
       .catch(next);
@@ -86,6 +96,7 @@ class HomeController {
       }
       const accessTokenLife = process.env.ACCESS_TOKEN_LIFE;
       const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET;
+      const refreshTokenSecret = process.env.REFRESH_TOKEN_SECRET;
       const dataForAccessToken = {
         email: user.email,
       };
@@ -99,7 +110,11 @@ class HomeController {
           .status(401)
           .send('Đăng nhập không thành công, vui lòng thử lại.');
       }
-      let refreshToken = randToken.generate(16, accessToken);
+      let refreshToken = await authMethod.generateToken(
+        dataForAccessToken,
+        refreshTokenSecret,
+        process.env.REFRESH_TOKEN_LIFE,
+      );
       if (!user.refreshToken) {
         await User.findOneAndUpdate(
           { email: email },

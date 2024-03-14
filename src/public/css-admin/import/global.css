@@ -137,3 +137,9 @@ form#formProduct .form-right > .input-group input {
   width: 100%;
   padding: 5rem;
 }
+#imageUrl {
+  width: 450px;
+  height: 450px;
+  object-fit: cover;
+  display: block;
+}

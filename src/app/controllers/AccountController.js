@@ -1,5 +1,5 @@
 const User = require('../models/User');
-const { multipleMongooseObject, mongooseObject } = require('../../utils');
+const { mongooseObject } = require('../../utils');
 const jwt = require('jsonwebtoken');
 
 class AccountController {

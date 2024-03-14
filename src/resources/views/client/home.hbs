@@ -61,10 +61,40 @@
           <h3 class='section-title'>Sản phẩm nổi bật</h3>
         </div>
         <div class='section-detail'>
-          <ul id='listItemFeatures'>
-            <div class='swiper'>
-              <div class='swiper-wrapper'></div>
-            </div>
+          <ul class='list-item' id='listItemFeatures'>
+            {{#each productShuffle}}
+              <li>
+                <a
+                  href='/products/details/{{this._id}}'
+                  title='{{this.name}}'
+                  class='thumb'
+                >
+                  <img
+                    src='/images/{{this.thumb.fileName}}'
+                    style='width: 150px;
+                  height: 150px; margin: 0 auto; object-fit: contain; display: block;'
+                  />
+                </a>
+                <a
+                  href='/products/details/{{this._id}}'
+                  title=''
+                  class='product-name'
+                >{{this.name}}</a>
+                <div class='price'>
+                  <span class='new'>{{calcPrice
+                      this.price
+                      this.discount
+                    }}</span>
+                  <span class='old'>{{format this.price}}</span>
+                </div>
+                <div class='action clearfix'>
+                  <a href='?page=cart' title='' class='add-cart fl-left'>Thêm
+                    giỏ hàng</a>
+                  <a href='?page=checkout' title='' class='buy-now fl-right'>Mua
+                    ngay</a>
+                </div>
+              </li>
+            {{/each}}
           </ul>
         </div>
       </div>
@@ -84,7 +114,7 @@
                   title='{{this.name}}'
                   class='thumb'
                 >
-                  <img src='/images/{{this.thumb}}' />
+                  <img src='/images/{{this.thumb.fileName}}' />
                 </a>
                 <a
                   href='/products/details/{{this._id}}'
@@ -124,7 +154,7 @@
                   title='{{this.name}}'
                   class='thumb'
                 >
-                  <img src='/images/{{this.thumb}}' />
+                  <img src='/images/{{this.thumb.fileName}}' />
                 </a>
                 <a
                   href='/products/details/{{this._id}}'

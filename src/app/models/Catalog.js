@@ -7,7 +7,6 @@ const Schema = mongoose.Schema;
 
 const Catalog = new Schema(
   {
-    id: Number,
     title: String,
     slug: { type: String, slug: 'title', unique: true },
   },

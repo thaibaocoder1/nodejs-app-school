@@ -109,42 +109,64 @@
                   <td><span class='thead-text'>Giá</span></td>
                   <td><span class='thead-text'>Sale</span></td>
                   <td><span class='thead-text'>Số lượng</span></td>
-                  <td><span class='thead-text'>Thời gian</span></td>
+                  <td><span class='thead-text'>Ngày tạo</span></td>
+                  <td><span class='thead-text'>Ngày cập nhật</span></td>
                   <td colspan='2'><span class='thead-text'>Thao tác</span></td>
                 </tr>
               </thead>
               <tbody>
-                {{#each products}}
+                {{#if products}}
+                  {{#each products}}
+                    <tr>
+                      <td><span class='tbody-text'>{{@index}}</span></td>
+                      <td><span class='tbody-text'>{{this.code}}</span></td>
+                      <td>
+                        <img
+                          src='/images/{{this.thumb.fileName}}'
+                          alt='{{this.name}}'
+                          style='width: 100px;
+                          height: 100px; object-fit: cover;'
+                        />
+                      </td>
+                      <td>
+                        <a
+                          href='/products/details/{{this._id}}'
+                          title='{{this.name}}'
+                        >{{this.name}}</a>
+                      </td>
+                      <td><span class='tbody-text'>{{format
+                            this.price
+                          }}</span></td>
+                      <td><span
+                          class='tbody-text'
+                        >{{this.discount}}%</span></td>
+                      <td><span class='tbody-text'>{{this.quantity}}</span></td>
+                      <td><span class='tbody-text'>{{formatDate
+                            this.createdAt
+                          }}</span></td>
+                      <td><span class='tbody-text'>{{formatDate
+                            this.updatedAt
+                          }}</span></td>
+                      <td>
+                        <a
+                          href='/admin/products/edit/{{this._id}}'
+                          class=''
+                        >Sửa</a>
+                        |
+                        <a
+                          href='/admin/products/delete/{{this._id}}'
+                          class=''
+                        >Xoá</a>
+                      </td>
+                    </tr>
+                  {{/each}}
+                {{else}}
                   <tr>
-                    <td><span class='tbody-text'>{{@index}}</span></td>
-                    <td><span class='tbody-text'>{{this.code}}</span></td>
-                    <td>
-                      <img
-                        src='/images/{{this.thumb}}'
-                        alt='{{this.name}}'
-                        height='80'
-                      />
-                    </td>
-                    <td>
-                      <a
-                        href='/products/details/{{this._id}}'
-                        title='{{this.name}}'
-                      >{{this.name}}</a>
-                    </td>
-                    <td><span class='tbody-text'>{{format
-                          this.price
-                        }}</span></td>
-                    <td><span class='tbody-text'>{{this.discount}}%</span></td>
-                    <td><span class='tbody-text'>{{this.quantity}}</span></td>
-                    <td><span class='tbody-text'>{{this.createdAt}}</span></td>
-                    <td>
-                      <a
-                        href='/admin/products/edit/{{this._id}}'
-                        class=''
-                      >Sửa</a>
-                    </td>
+                    <td colspan='9' style='text-align: center;'>Chưa có sản phẩm
+                      nào.
+                      <a href='/admin/products/add'>Tạo mới sản phẩm ngay</a></td>
                   </tr>
-                {{/each}}
+                {{/if}}
               </tbody>
             </table>
           </div>

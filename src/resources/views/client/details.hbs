@@ -27,8 +27,8 @@
                 id='zoom'
                 style='width: 350px;
                 height: 350px; object-fit: contain; display: block;'
-                src='/images/{{product.thumb}}'
-                data-zoom-image='/images/{{product.thumb}}'
+                src='/images/{{product.thumb.fileName}}'
+                data-zoom-image='/images/{{product.thumb.fileName}}'
               />
             </a>
           </div>
@@ -42,7 +42,10 @@
             </div>
             <div class='num-product'>
               <span class='title'>Sản phẩm: </span>
-              <span class='status'>Còn hàng</span>
+              <span class='status'>{{checkStatus
+                  this.status
+                  this.quantity
+                }}</span>
             </div>
             <p class='price'>{{format product.price}}</p>
             <div id='num-order-wp'>
@@ -85,7 +88,7 @@
                   class='thumb'
                 >
                   <img
-                    src='/images/{{this.thumb}}'
+                    src='/images/{{this.thumb.fileName}}'
                     style='width: 150px;
                   height: 150px; object-fit: contain; display: block; margin: 0 auto;'
                   />
