@@ -10,8 +10,8 @@ const db = require('./config/db');
 const authMethod = require('./auth/AuthController');
 const routes = require('./routes');
 const dayjs = require('dayjs');
-const dotenv = require('dotenv');
 const User = require('./app/models/User');
+const dotenv = require('dotenv');
 dotenv.config();
 // Start app
 const app = express();
@@ -20,7 +20,6 @@ const port = process.env.PORT || 3000;
 // Connect database
 db.connect();
 // Middleware
-
 app.use(morgan('dev'));
 app.use(
   express.urlencoded({

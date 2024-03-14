@@ -1,11 +1,11 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 async function connect() {
   try {
-    await mongoose.connect("mongodb://127.0.0.1:27017/course-nodejs-poly");
-    console.log("Connect successfully");
+    await mongoose.connect(process.env.MONGODB_URL);
+    console.log('Connect successfully');
   } catch (error) {
-    console.log("Failed to connect with database", error.message);
+    console.log('Failed to connect with database', error.message);
   }
 }
 
