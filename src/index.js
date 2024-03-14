@@ -13,10 +13,10 @@ const dayjs = require('dayjs');
 const User = require('./app/models/User');
 const dotenv = require('dotenv');
 dotenv.config();
-// Connect database
-db.connect();
 // Start app
 const app = express();
+// Connect database
+db.connect();
 // Environment variables
 const port = process.env.PORT || 3000;
 // Middleware
