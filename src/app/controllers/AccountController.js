@@ -50,6 +50,7 @@ class AccountController {
   }
   change(req, res, next) {
     const userEmail = req.user.email;
+    console.log(req.user);
     const isLogin = userEmail ? true : false;
     res.render('change', {
       isLogin,

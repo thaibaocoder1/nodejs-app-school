@@ -1,30 +1,69 @@
 const Product = require('../models/Product');
 const Catalog = require('../models/Catalog');
+const User = require('../models/User');
 const { multipleMongooseObject, mongooseObject } = require('../../utils');
 
 class AdminController {
-  index(req, res, next) {
-    res.render('home');
+  async index(req, res, next) {
+    try {
+      // const { email } = req.user;
+      // const user = await User.findOne({ email: email });
+      // if (user) {
+      //   const { role } = user;
+      //   if (role === 'User') {
+      //     res.render('auth/login');
+      //   } else {
+      //   }
+      // }
+      res.render('home');
+    } catch (error) {
+      next(error);
+    }
   }
   // Product
-  products(req, res, next) {
-    Promise.all([Product.find({}), Product.countDocuments()])
-      .then(([products, counted]) => {
-        res.render('product/view', {
-          products: multipleMongooseObject(products),
-          counted,
-        });
-      })
-      .catch(next);
+  async products(req, res, next) {
+    if (req.query.catalogs) {
+      const slugCategory = req.query.catalogs;
+      const catalog = await Catalog.findOne({ slug: slugCategory });
+      const catalogID = catalog._id;
+      const products = await Product.find({ categoryID: catalogID }).sort(
+        '-updatedAt',
+      );
+      const catalogs = await Catalog.find({});
+      const counted = await Product.find({
+        categoryID: catalogID,
+      }).countDocuments();
+      res.render('product/view', {
+        products: multipleMongooseObject(products),
+        counted,
+        catalogs: multipleMongooseObject(catalogs),
+        slugCategory,
+      });
+    } else {
+      Promise.all([
+        Product.find({}).sort('-updatedAt'),
+        Product.countDocuments(),
+        Catalog.find({}),
+      ])
+        .then(([products, counted, catalogs]) => {
+          res.render('product/view', {
+            products: multipleMongooseObject(products),
+            counted,
+            catalogs: multipleMongooseObject(catalogs),
+          });
+        })
+        .catch(next);
+    }
   }
   productEdit(req, res, next) {
-    Promise.all([Product.findById({ _id: req.params.id }), Catalog.find()])
+    Promise.all([
+      Product.findById({ _id: req.params.id }).populate('categoryID'),
+      Catalog.find(),
+    ])
       .then(([product, listCategory]) => {
-        const catalogPID = mongooseObject(product).categoryID;
         res.render('product/edit', {
           product: mongooseObject(product),
           listCategory: multipleMongooseObject(listCategory),
-          catalogPID,
         });
       })
       .catch(next);
@@ -47,7 +86,10 @@ class AdminController {
     try {
       Product.create(req.body)
         .then(() => {
-          res.redirect('/admin/products');
+          res.status(201).json({
+            status: 'success',
+            message: 'Create successfully',
+          });
         })
         .catch(next);
     } catch (error) {
@@ -60,9 +102,6 @@ class AdminController {
       if (!req.file) {
         if (JSON.stringify(req.body) !== JSON.stringify(product.toObject())) {
           await Product.findByIdAndUpdate({ _id: req.params.id }, req.body);
-          res.redirect('/admin/products');
-        } else {
-          res.redirect('/admin/products');
         }
       } else {
         req.body.thumb = {
@@ -71,8 +110,11 @@ class AdminController {
           fileName: req.file.originalname,
         };
         await Product.findByIdAndUpdate({ _id: req.params.id }, req.body);
-        res.redirect('/admin/products');
       }
+      res.status(201).json({
+        status: 'success',
+        message: 'Update successfully',
+      });
     } catch (error) {
       res.status(500).send('Lỗi khi xử lý request.');
     }
@@ -126,6 +168,26 @@ class AdminController {
         res.redirect('/admin/category');
       })
       .catch(next);
+  }
+  // Account
+  account(req, res, next) {
+    res.render('account/home');
+  }
+  // User
+  async user(req, res, next) {
+    try {
+      const users = await User.find({}).sort('-updatedAt');
+      if (users) {
+        res.render('user/home', {
+          users: multipleMongooseObject(users),
+        });
+      }
+    } catch (error) {
+      next(error);
+    }
+  }
+  userEdit(req, res, next) {
+    res.render('user/edit');
   }
 }
 module.exports = new AdminController();

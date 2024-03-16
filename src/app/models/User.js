@@ -13,7 +13,10 @@ const User = new Schema(
     phone: String,
     password: String,
     password_confirmation: String,
-    roleID: Number,
+    role: {
+      type: String,
+      default: 'User',
+    },
     imageUrl: String,
     refreshToken: String,
   },

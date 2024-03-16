@@ -1,4 +1,5 @@
 import { setTextContent } from '/utils/common.js';
+import { toast } from '/utils/toast.js';
 import * as yup from 'https://cdn.jsdelivr.net/npm/yup@1.4.0/+esm';
 
 function setFieldError(form, name, error) {
@@ -72,19 +73,11 @@ function initEditFormCategory({ idForm }) {
         }),
       });
       if (res.status === 201 && res.ok) {
-        Toastify({
-          text: pathname.includes('add')
+        toast.success(
+          pathname.includes('add')
             ? 'Thêm mới thành công'
             : 'Cập nhật thành công',
-          duration: 3000,
-          close: true,
-          gravity: 'top', // `top` or `bottom`
-          position: 'right', // `left`, `center` or `right`
-          style: {
-            background: 'linear-gradient(to right, #00b09b, #96c93d)',
-            fontSize: '18px',
-          },
-        }).showToast();
+        );
         setTimeout(() => {
           window.location.assign('/admin/category');
         }, 500);

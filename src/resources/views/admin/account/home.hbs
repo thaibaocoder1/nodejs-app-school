@@ -1,0 +1,84 @@
+<div id='main-content-wp' class='info-account-page'>
+  <div class='wrap clearfix'>
+    <div id='sidebar' class='fl-left'>
+      <ul id='sidebar-menu'>
+        <li class='nav-item'>
+          <a href='' title='Tài khoản' class='nav-link nav-toggle'>
+            <span class='fa fa-info-circle icon'></span>
+            <span class='title'>Tài khoản</span>
+          </a>
+          <ul class='sub-menu'>
+            <li class='nav-item'>
+              <a
+                href='/admin/account/update'
+                title='Cập nhật
+                thông tin'
+                class='nav-link'
+              >Cập nhật thông tin</a>
+            </li>
+            <li class='nav-item'>
+              <a
+                href='/admin/account/change'
+                title='Đổi mật
+                khẩu'
+                class='nav-link'
+              >Đổi mật khẩu</a>
+            </li>
+          </ul>
+        </li>
+        <li class='nav-item'>
+          <a href='' title='' class='nav-link nav-toggle'>
+            <span class='fa fa-user-plus icon'></span>
+            <span class='title'>Khách hàng</span>
+          </a>
+          <ul class='sub-menu'>
+            <li class='nav-item'>
+              <a href='/admin/user/add' title='' class='nav-link'>Thêm khách
+                hàng</a>
+            </li>
+            <li class='nav-item'>
+              <a href='/admin/user' title='' class='nav-link'>Danh sách khách
+                hàng</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div id='content' class='fl-right'>
+      <div class='section' id='title-page'>
+        <div class='clearfix'>
+          <h3 id='index' class='fl-left'>Cập nhật tài khoản</h3>
+          <a
+            href='/admin/account/add'
+            title=''
+            id='add-new'
+            class='fl-left'
+          >Thêm mới</a>
+        </div>
+      </div>
+      <div class='section' id='detail-page'>
+        <div class='section-detail'>
+          <form method='POST'>
+            <label for='display-name'>Tên hiển thị</label>
+            <input type='text' name='display-name' id='display-name' />
+            <label for='username'>Tên đăng nhập</label>
+            <input
+              type='text'
+              name='username'
+              id='username'
+              placeholder='admin'
+              readonly='readonly'
+            />
+            <label for='email'>Email</label>
+            <input type='email' name='email' id='email' />
+            <label for='tel'>Số điện thoại</label>
+            <input type='tel' name='tel' id='tel' />
+            <label for='address'>Địa chỉ</label>
+            <textarea name='address' id='address'></textarea>
+            <button type='submit' name='btn-submit' id='btn-submit'>Cập nhật</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

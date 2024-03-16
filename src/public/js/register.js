@@ -1,6 +1,6 @@
 async function handleOnSubmitForm(data) {
   if (data) {
-    data['roleID'] = 1;
+    data['role'] = 'User';
     data['imageUrl'] = 'https://placehold.co/400x400';
   }
   try {

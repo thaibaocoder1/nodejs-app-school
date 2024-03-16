@@ -1,18 +1,6 @@
 async function handleOnSubmitForm(data) {
   try {
-    const res = await fetch('/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    });
-    const dataRes = await res.json();
-    if (dataRes.accessToken && dataRes.refreshToken) {
-      setTimeout(() => {
-        window.location.assign('/');
-      }, 1000);
-    }
+    console.log(data);
   } catch (error) {
     console.log('Đăng nhập thất bại');
   }

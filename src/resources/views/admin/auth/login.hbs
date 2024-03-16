@@ -1,0 +1,35 @@
+<div id='wrapper-auth'>
+  <div id='login-page-admin'>
+    <h2 class='text-center fs-5 text-uppercase'>Đăng nhập cho người quản trị</h2>
+    <form id='form-1'>
+      <div class='mb-3 form-group'>
+        <label for='email' class='form-label'>Email</label>
+        <input
+          type='email'
+          class='form-control'
+          id='email'
+          placeholder='Nhập vào email...'
+        />
+        <span style='color: red;' class='form-message'></span>
+      </div>
+      <div class='mb-3 form-group'>
+        <label for='password' class='form-label'>Password</label>
+        <input
+          type='password'
+          class='form-control'
+          id='password'
+          placeholder='Nhập vào password'
+        />
+        <span style='color: red;' class='form-message'></span>
+      </div>
+      <button
+        type='submit'
+        class='btn btn-primary'
+        style='background-position: unset;'
+      >Đăng nhập</button>
+    </form>
+  </div>
+</div>
+
+<script src='js/validator.js'></script>
+<script src='js/admin-login.js'></script>

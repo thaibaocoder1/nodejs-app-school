@@ -48,7 +48,9 @@ app.engine(
         return value || currentValue;
       },
       selectedVal(categoryPID, catgoryID) {
-        return catgoryID === categoryPID ? 'selected' : '';
+        return catgoryID.toString() === categoryPID.toString()
+          ? 'selected'
+          : '';
       },
       formatDate(date) {
         return dayjs(date).format('YYYY-MM-DD HH:mm');
@@ -66,6 +68,9 @@ app.engine(
           default:
             return 'Còn hàng';
         }
+      },
+      setActive(slug, slugReturn) {
+        return slug === slugReturn ? 'selected' : '';
       },
     },
   }),
@@ -86,6 +91,18 @@ const checkAuthMiddleware = (req, res, next) => {
   const authorizationTokenRefresh = req.cookies.refreshToken;
   if (authorizationTokenRefresh) {
     if (authorizationToken) {
+      jwt.verify(
+        authorizationToken,
+        process.env.ACCESS_TOKEN_SECRET,
+        async (err, data) => {
+          if (err) {
+            return res.redirect('/login');
+          }
+          req.user = {
+            email: data.payload.email,
+          };
+        },
+      );
       next();
     } else {
       const refreshTokenSecret = process.env.REFRESH_TOKEN_SECRET;
@@ -119,7 +136,7 @@ const checkAuthMiddleware = (req, res, next) => {
             res.cookie('accessToken', accessToken, { maxAge: 5 * 60 * 1000 });
             res.cookie('refreshToken', refreshToken);
             req.user = {
-              email,
+              email: data.payload.email,
             };
             next();
           }

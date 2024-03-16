@@ -85,6 +85,19 @@
             <input type='submit' value='Tìm kiếm' />
           </form>
         </div>
+        <div class='actions'>
+          <form method='GET' action='/admin/products' class='form-actions'>
+            <select name='catalogs'>
+              {{#each catalogs}}
+                <option
+                  value='{{slug}}'
+                  {{setActive this.slug ../slugCategory}}
+                >{{this.title}}</option>
+              {{/each}}
+            </select>
+            <input type='submit' value='Áp dụng' />
+          </form>
+        </div>
       </div>
       <div class='section' id='detail-page'>
         <div class='section-detail'>
@@ -162,8 +175,8 @@
                   {{/each}}
                 {{else}}
                   <tr>
-                    <td colspan='9' style='text-align: center;'>Chưa có sản phẩm
-                      nào.
+                    <td colspan='10' style='text-align: center;'>Chưa có sản
+                      phẩm nào.
                       <a href='/admin/products/add'>Tạo mới sản phẩm ngay</a></td>
                   </tr>
                 {{/if}}

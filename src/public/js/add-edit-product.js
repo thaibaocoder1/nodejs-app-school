@@ -24,15 +24,27 @@ function initAddForm({ idForm }) {
     const formData = jsonToFormData(formValues);
     const pathname = window.location.pathname;
     if (pathname.includes('edit')) {
-      await fetch(formElement.action, {
+      const res = await fetch(formElement.action, {
         method: 'POST',
         body: formData,
       });
+      if (res.ok && res.status === 201) {
+        toast.success('Cập nhật thành công');
+        setTimeout(() => {
+          window.location.assign('/admin/products');
+        }, 500);
+      }
     } else {
-      await fetch(formElement.action, {
+      const res = await fetch(formElement.action, {
         method: 'POST',
         body: formData,
       });
+      if (res.ok && res.status === 201) {
+        toast.success('Thêm mới thành công');
+        setTimeout(() => {
+          window.location.assign('/admin/products');
+        }, 500);
+      }
     }
   });
 }

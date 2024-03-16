@@ -25,6 +25,11 @@ router.put('/category/update/:id', adminController.categoryUpdate);
 router.get('/category/add', adminController.categoryAdd);
 router.post('/category/store', adminController.categoryStore);
 router.delete('/category/delete/:id', adminController.categoryDelete);
+// Account
+router.get('/account/info', adminController.account);
+// User
+router.get('/user/edit/:id', adminController.userEdit);
+router.get('/user', adminController.user);
 // Home admin
 router.get('/', adminController.index);
 

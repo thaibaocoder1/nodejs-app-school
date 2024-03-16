@@ -1,0 +1,113 @@
+<div id='main-content-wp' class='list-post-page'>
+  <div class='wrap clearfix'>
+    <div id='sidebar' class='fl-left'>
+      <ul id='sidebar-menu'>
+        <li class='nav-item'>
+          <a href='' title='' class='nav-link nav-toggle'>
+            <span class='fa fa-info-circle icon'></span>
+            <span class='title'>Tài khoản</span>
+          </a>
+          <ul class='sub-menu'>
+            <li class='nav-item'>
+              <a href='/admin/account/update' title='' class='nav-link'>Cập nhật
+                thông tin</a>
+            </li>
+            <li class='nav-item'>
+              <a href='/admin/account/change' title='' class='nav-link'>Đổi mật
+                khẩu</a>
+            </li>
+          </ul>
+        </li>
+        <li class='nav-item'>
+          <a href='' title='' class='nav-link nav-toggle'>
+            <span class='fa fa-user-plus icon'></span>
+            <span class='title'>Khách hàng</span>
+          </a>
+          <ul class='sub-menu'>
+            <li class='nav-item'>
+              <a href='/admin/user/add' title='' class='nav-link'>Thêm khách
+                hàng</a>
+            </li>
+            <li class='nav-item'>
+              <a href='/admin/users' title='' class='nav-link'>Danh sách khách
+                hàng</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div id='content' class='fl-right'>
+      <div class='section section--custom' id='title-page'>
+        <div class='clearfix'>
+          <h3 id='index' class='fl-left'>Danh sách tài khoản</h3>
+          <a
+            href='/admin/user/add'
+            title='Thêm mới'
+            id='add-new'
+            class='fl-left'
+          >
+            Thêm mới
+          </a>
+        </div>
+        <div class='form-s fl-right'>
+          <input type='text' name='s' id='searchInput' />
+          <span
+            style='
+                  display: inline-block;
+                  background: #eee;
+                  padding: 3px;
+                  border-radius: 3px;
+                  color: #333;
+                '
+          >Tìm kiếm</span>
+        </div>
+      </div>
+      <div class='section' id='detail-page'>
+        <div class='section-detail'>
+          {{! Filter }}
+          <div class='table-responsive'>
+            <table class='table list-table-wp' id='listUserTable'>
+              <thead>
+                <tr>
+                  <td><span class='thead-text'>STT</span></td>
+                  <td><span class='thead-text'>Mã khách hàng</span></td>
+                  <td><span class='thead-text'>Họ và tên</span></td>
+                  <td><span class='thead-text'>Tên đăng nhập</span></td>
+                  <td><span class='thead-text'>Số điện thoại</span></td>
+                  <td><span class='thead-text'>Email</span></td>
+                  <td><span class='thead-text'>Vai trò</span></td>
+                  <td><span class='thead-text'>Thao tác</span></td>
+                </tr>
+              </thead>
+              <tbody>
+                {{#if users}}
+                  {{#each users}}
+                    <tr>
+                      <td><span class='tbody-text'>{{@index}}</span></td>
+                      <td><span class='tbody-text'>{{this._id}}</span></td>
+                      <td><span class='tbody-text'>{{this.fullname}}</span></td>
+                      <td><span class='tbody-text'>{{this.username}}</span></td>
+                      <td><span class='tbody-text'>{{this.phone}}</span></td>
+                      <td><span class='tbody-text'>{{this.email}}</span></td>
+                      <td><span class='tbody-text'>{{this.role}}</span></td>
+                      <td>
+                        <a href='/admin/user/edit/{{this._id}}'>Sửa</a>
+                        |
+                        <a href='/admin/user/delete/{{this._id}}'>Ngừng kích
+                          hoạt</a>
+                      </td>
+                    </tr>
+                  {{/each}}
+                {{else}}
+                  <tr>
+                    <td colspan='8'>Chưa có tài khoản nào</td>
+                  </tr>
+                {{/if}}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
